@@ -1,0 +1,63 @@
+<section id="wrapper">
+  <h2 class="mb-3">Rergistracija:</h2>
+  <div class="tab-content">
+    <div role="tabpanel">
+      <form [formGroup]="signupForm" (ngSubmit)="signUp()">
+        <!-- Name input -->
+        <div class="form-outline mb-4">
+          <input formControlName="name" type="text" id="registerName" class="form-control" />
+          <label class="form-label" for="registerName">Ime</label>
+        </div>
+
+        <!-- Username input -->
+        <div class="form-outline mb-4">
+          <input formControlName="surname" type="text" id="registerSurname" class="form-control" required />
+          <label class="form-label" for="registerSurname">Prezime</label>
+        </div>
+
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+          <input formControlName="email" type="email" id="registerEmail" class="form-control" required />
+          <label class="form-label" for="registerEmail">Email</label>
+        </div>
+
+        <!-- phone input -->
+        <div class="form-outline mb-4">
+          <input formControlName="phone" type="tel" id="phoneContent" class="form-control" placeholder="065 000 000"
+            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" />
+          <label class="form-label" for="phoneContent">Telefon</label>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+          <input formControlName="password" type="password" id="registerPassword" class="form-control" required />
+          <label class="form-label" for="registerPassword">Šifra</label>
+        </div>
+
+        <!-- Repeat Password input -->
+        <div class="form-outline mb-4">
+          <input formControlName="repeatPassword" type="password" id="registerRepeatPassword" class="form-control"
+            required />
+          <label class="form-label" for="registerRepeatPassword">Ponovi lozinku</label>
+        </div>
+
+        <!-- Checkbox -->
+        <div class="form-check d-flex justify-content-center mb-4">
+          <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
+            aria-describedby="registerCheckHelpText" />
+          <label class="form-check-label" for="registerCheck">
+            Slažem se sa svim pravima
+          </label>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block mb-4">Registruj se</button>
+
+        <!-- Submit button -->
+        <div class="text-center">
+          <p>Postojeći član? <a routerLink="/login-page">Uloguj se</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

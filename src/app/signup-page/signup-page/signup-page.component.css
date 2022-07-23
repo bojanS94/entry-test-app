@@ -1,0 +1,9 @@
+#wrapper {
+  padding: 5rem;
+  max-width: 600px;
+  margin: auto;
+  margin-top: 5rem;
+  box-shadow: 1px 42px 90px -14px #777;
+  background: #fff;
+  border-radius: 2px;
+}
