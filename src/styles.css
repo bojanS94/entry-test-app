@@ -2,4 +2,5 @@
 
 body {
   background: url('./assets/img/background-pic.jpg');
+  background-attachment: fixed;
 }

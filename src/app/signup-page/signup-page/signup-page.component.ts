@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -18,12 +18,15 @@ export class SignupPageComponent implements OnInit {
 
     this.signupForm = this.formBuilder.group({
 
-      name: [''],
-      surname: [''],
-      email: [''],
-      password: [''],
-      repeatPassword: [''],
-      phone: ['']
+      name: new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
+      surname: new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
+      email: new FormControl('', Validators.compose([Validators.required, Validators.email])),
+      password: new FormControl('', Validators.required),
+      repeatPassword: new FormControl('', Validators.required),
+      phone: new FormControl(''),
+      registerCheck: new FormControl(false, Validators.requiredTrue)
+    }, {
+      validators: this.repeatedPasswordMustMatch('password', 'repeatPassword')
     })
   }
 
@@ -31,23 +34,33 @@ export class SignupPageComponent implements OnInit {
   signUp() {
     this.http.post<any>("http://localhost:3000/signupUsers", this.signupForm.value)
       .subscribe(resolve => {
-        const user = resolve.find((x: any) => {
-          return x.email === this.signupForm.value.email && x.password === this.signupForm.value.password && this.signupForm.value.repeatPassword
-            && this.signupForm.value.name && this.signupForm.value.surname;
-        })
-
-        if (user) {
-          alert("Uspješno ste se prijavili!")
-          this.signupForm.reset();
-          this.router.navigate(['login-page'])
-        }
-
-        else {
-          alert("Neispravni korisnički podaci!")
-        }
+        alert("Uspješno ste se registrovali!")
+        this.signupForm.reset();
+        this.router.navigate(['login-page'])
       }, error => {
         alert('Došlo je do greške!');
       }
       )
+  }
+
+  get checkErrorFunction() {
+    return this.signupForm.controls;
+  }
+
+  repeatedPasswordMustMatch(password: any, confirmPassword: any) {
+    return (formGroup: FormGroup) => {
+      const passwordControl = formGroup.controls[password];
+      const confirmPasswordControl = formGroup.controls[confirmPassword];
+
+      if (confirmPassword.error && !confirmPassword.error['repeatedPasswordMustMatch']) {
+        return;
+      }
+
+      if (passwordControl.value !== confirmPasswordControl.value) {
+        confirmPasswordControl.setErrors({ repeatedPasswordMustMatch: true });
+      } else {
+        confirmPasswordControl.setErrors(null);
+      }
+    }
   }
 }

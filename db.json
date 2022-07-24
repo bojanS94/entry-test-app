@@ -1,0 +1,24 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "signupUsers": [
+    {
+      "name": "Bojan",
+      "surname": "Savić",
+      "email": "bojan@test.com",
+      "password": "123",
+      "repeatPassword": "123",
+      "phone": "",
+      "registerCheck": true,
+      "id": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

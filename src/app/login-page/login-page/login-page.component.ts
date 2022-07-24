@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent implements OnInit {
 
+  send: boolean | undefined;
+
   public loginForm !: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) { }
@@ -17,8 +19,8 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
 
     this.loginForm = this.formBuilder.group({
-      email: [''],
-      password: ['']
+      email: ['', Validators.required],
+      password: ['', Validators.required]
     })
   }
 
@@ -32,12 +34,23 @@ export class LoginPageComponent implements OnInit {
           alert("Uspješno ste se prijavili!")
           this.loginForm.reset();
           this.router.navigate(['tasks-page'])
-        } else {
+        }
+
+        else if (!user) {
+          alert("Korisnik ne postoji!")
+          this.loginForm.reset();
+        }
+
+        else {
           alert("Korisnik nije pronađen!");
         }
       }, error => {
         alert("Došlo je do pogreške, pokušajte ponovo!");
       })
+  }
+
+  get checkErrorFunction() {
+    return this.loginForm.controls;
   }
 
 }
