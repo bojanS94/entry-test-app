@@ -1,11 +1,5 @@
 {
-  "posts": [
-    {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
+  "tasks": [],
   "signupUsers": [
     {
       "name": "Bojan",
@@ -17,8 +11,5 @@
       "registerCheck": true,
       "id": 1
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

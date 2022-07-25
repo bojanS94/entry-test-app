@@ -5,17 +5,16 @@
       <form [formGroup]="loginForm" (ngSubmit)="login()">
         <!-- Email input -->
         <div class="form-outline mb-4">
-          <label class="form-label" for="loginName">Email ili korisničko ime</label>
+          <label class="form-label" for="loginName">Email:</label>
           <input formControlName="email" type="email" id="loginName" class="form-control" />
 
           <div *ngIf="checkErrorFunction['email'].getError('required')!=null" class="text-danger">Unesite
-            email ili korisničko
-            ime!</div>
+            email!</div>
         </div>
 
         <!-- Password input -->
         <div class="form-outline mb-4">
-          <label class="form-label" for="loginPassword">Šifra</label>
+          <label class="form-label" for="loginPassword">Lozinka:</label>
           <input formControlName="password" type="password" id="loginPassword" class="form-control" />
 
           <div *ngIf="checkErrorFunction['password'].getError('required')!=null" class="text-danger">Lozinka je
