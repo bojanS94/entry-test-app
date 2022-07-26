@@ -12,8 +12,8 @@ export class TasksPageComponent implements OnInit {
   taskObj: Tasks = new Tasks();
   taskArr: Tasks[] = [];
 
-  public addTaskValue: string = '';
-  public editTaskValue: string = '';
+  addTaskValue: string = '';
+  editTaskValue: string = '';
 
   constructor(private crudService: CrudService) { }
 
@@ -28,7 +28,7 @@ export class TasksPageComponent implements OnInit {
     this.crudService.getAllTask().subscribe(res => {
       this.taskArr = res;
     }, err => {
-      alert("Unable to get list of tasks");
+      alert("Nemoguce inicijalizovati listu taskova");
     });
   }
 
@@ -44,10 +44,11 @@ export class TasksPageComponent implements OnInit {
 
   editTask() {
     this.taskObj.title = this.editTaskValue;
+    this.taskObj.priority = this.editTaskValue;
     this.crudService.editTask(this.taskObj).subscribe(res => {
       this.ngOnInit();
     }, err => {
-      alert("Failed to update task");
+      alert("Greska pri update-u taska");
     })
   }
 
@@ -55,13 +56,14 @@ export class TasksPageComponent implements OnInit {
     this.crudService.deleteTask(etask).subscribe(res => {
       this.ngOnInit();
     }, err => {
-      alert("Failed to delete task");
+      alert("Nemoguce obrisati task!");
     });
   }
 
   call(etask: Tasks) {
     this.taskObj = etask;
     this.editTaskValue = etask.title;
+    this.editTaskValue = etask.priority;
   }
 
 }

@@ -10,6 +10,16 @@
       "phone": "",
       "registerCheck": true,
       "id": 1
+    },
+    {
+      "name": "Test",
+      "surname": "test",
+      "email": "test@test.com",
+      "password": "123",
+      "repeatPassword": "123",
+      "phone": "",
+      "registerCheck": true,
+      "id": 2
     }
   ]
 }
