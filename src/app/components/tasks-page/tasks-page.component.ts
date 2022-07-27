@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Tasks } from '../../model/tasks';
+import { Priorities } from '../../model/tasks';
 import { CrudService } from 'src/app/service/crud.service';
 
 @Component({
@@ -12,14 +13,35 @@ export class TasksPageComponent implements OnInit {
   taskObj: Tasks = new Tasks();
   taskArr: Tasks[] = [];
 
+  priorities: Priorities[] = [
+    { value: 'high-1', viewValue: 'Visok' },
+    { value: 'medium-2', viewValue: 'Srednji' },
+    { value: 'low-3', viewValue: 'Nizak' },
+  ];
+
   addTaskValue: string = '';
   editTaskValue: string = '';
+
+  note: string = '';
+  editNote: string = '';
+
+  dateStart: string = '';
+  dateEnd: string = '';
+
+  selectedPriority: string = '';
 
   constructor(private crudService: CrudService) { }
 
   ngOnInit(): void {
     this.editTaskValue = '';
     this.addTaskValue = '';
+
+    this.note = '';
+    this.editNote = '';
+
+    this.dateStart = '12.7.2022';
+    this.dateEnd = '12.8.2022';
+
     this.taskObj = new Tasks();
     this.taskArr = [];
     this.getAllTask();
@@ -34,9 +56,13 @@ export class TasksPageComponent implements OnInit {
 
   addTask() {
     this.taskObj.title = this.addTaskValue;
+    this.taskObj.note = this.note;
+    this.taskObj.startDate = this.dateStart;
+
     this.crudService.addTask(this.taskObj).subscribe(res => {
       this.ngOnInit();
       this.addTaskValue = '';
+      this.note = '';
     }, err => {
       alert(err);
     })
@@ -44,7 +70,11 @@ export class TasksPageComponent implements OnInit {
 
   editTask() {
     this.taskObj.title = this.editTaskValue;
-    this.taskObj.priority = this.editTaskValue;
+    this.taskObj.note = this.editNote;
+
+    this.taskObj.startDate = this.dateStart;
+    this.taskObj.endDate = this.dateEnd;
+
     this.crudService.editTask(this.taskObj).subscribe(res => {
       this.ngOnInit();
     }, err => {
@@ -60,10 +90,10 @@ export class TasksPageComponent implements OnInit {
     });
   }
 
-  call(etask: Tasks) {
+  public call(etask: Tasks) {
     this.taskObj = etask;
     this.editTaskValue = etask.title;
-    this.editTaskValue = etask.priority;
+    this.editNote = etask.note;
   }
 
 }
