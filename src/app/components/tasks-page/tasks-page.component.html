@@ -4,7 +4,7 @@
   </div>
   <div class="container-fluid mt-5">
     <div class="container">
-      <div class="row" style="height: 500px;">
+      <div class="row">
         <div class="card border-0">
           <h4 class=" text-black p-3 pt-2 pb-2">Prikaz taskova:</h4>
         </div>
@@ -15,40 +15,59 @@
             <input type="text" class="form-control" placeholder="Napomena" name="task" [(ngModel)]="note">
             <select class="form-select" aria-label="Default select example">
               <option selected>
-                <p class="text-secondary">Odaberi nivo prioriteta</p>
+                <p class="text-secondary">Odaberi nivo prioriteta:</p>
               </option>
               <option *ngFor="let priority of priorities" [(ngModel)]="priority.value">
                 {{priority.viewValue}}
               </option>
             </select>
-            <input type="text" mask="d0/M0/0000" placeholder="Ex. dd/mm/yyyy" class="form-control"
-              [(ngModel)]="dateStart">
             <button class="btn btn-outline-success" type="button" (click)="addTask()">+</button>
           </div>
         </div>
         <h4 class="text-primary mt-4">Lista taskova: </h4>
-        <div style="overflow-y: auto; height: 350px;">
-          <div class="m-3" *ngFor="let task of taskArr">
-            <div class="p-2 shadow border" id="tasks">
-              <div class="input-group row ps-3">
-                <div class="card col-md-10 border-0"> {{task.title}} </div>
-                <div class="card col-md-10 border-0"> {{task.note}} </div>
-                <button (click)="call(task)" class="btn btn-outline-primary col me-2" data-bs-toggle="modal"
-                  data-bs-target="#exampleModal" type="button">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                    <path
-                      d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
-                  </svg>
-                </button>
-                <button class="btn btn-outline-danger col" (click)="deleteTask(task)"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x"
-                    viewBox="0 0 16 16">
-                    <path
-                      d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                  </svg></button>
-              </div>
-            </div>
+        <div style="overflow-y: auto;">
+          <div class=" m-3">
+            <table class="table" *ngFor="let task of taskArr; let i = index">
+              <thead>
+                <tr>
+                  <th class="">#</th>
+                  <th scope="col">Naziv taska:</th>
+                  <th scope="col">Napomena</th>
+                  <th scope="col">Prioritet</th>
+                  <th scope="col">Datum pocetka</th>
+                  <th scope="col">Datum zavrsetka</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{i + '.'}}</td>
+                  <td>{{task.title}}</td>
+                  <td>{{task.note}}</td>
+                  <td>Srednji</td>
+                  <td>{{dateStart}}</td>
+                  <td>{{dateEnd}}</td>
+                  <td>
+                    <button (click)="call(task)" class="btn btn-outline-primary col me-2" data-bs-toggle="modal"
+                      data-bs-target="#exampleModal" type="button">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                        <path
+                          d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                      </svg>
+                    </button>
+                  </td>
+                  <td>
+                    <button class="btn btn-outline-danger col" (click)="deleteTask(task)"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x"
+                        viewBox="0 0 16 16">
+                        <path
+                          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
         <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -61,14 +80,31 @@
               </div>
               <div class="modal-body">
                 <div class="input-group p-4">
-                  <input type="text" class="form-control" placeholder="Dodaj naziv taska" name="task"
-                    [(ngModel)]="editTaskValue">
-                  <input type="text" class="form-control" placeholder="Napomena" name="task" [(ngModel)]="editNote">
-                  <hr>
-                  <input type="text" class="form-control" placeholder="Dodaj naziv taska" name="task"
-                    [(ngModel)]="dateStart">
-                  <input type="text" class="form-control" placeholder="Dodaj naziv taska" name="task"
-                    [(ngModel)]="dateEnd">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="text-center" scope="col">Naziv taska</th>
+                        <th class="text-center" scope="col">Napomena</th>
+                        <th class="text-center" scope="col">Prioritet</th>
+                        <th class="text-center" scope="col">Datum pocetka</th>
+                        <th class="text-center" scope="col">Datum zavrsetka</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                  <input type="text" class="form-control" placeholder="Dodaj naziv taska" [(ngModel)]="editTaskValue">
+                  <input type="text" class="form-control" placeholder="Napomena" [(ngModel)]="editNote">
+                  <div class="form-control"><select class="form-select" aria-label="Default select example">
+                      <option selected>
+                        <p class="text-secondary">Odaberi nivo prioriteta</p>
+                      </option>
+                      <option *ngFor="let priority of priorities" [(ngModel)]="priority.value">
+                        {{priority.viewValue}}
+                      </option>
+                    </select></div>
+                  <input type="text" class="form-control" [(ngModel)]="dateStart">
+                  <input type="text" class="form-control" [(ngModel)]="dateEnd">
                   <button class="btn btn-outline-success" type="button" data-bs-dismiss="modal"
                     (click)="editTask()">Azuriraj</button>
                 </div>
